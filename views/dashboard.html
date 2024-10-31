@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="header">
+      <div id="currentTime"></div>
+    </div>
+    <h1>Dashboard</h1>
+    <div class="court-buttons" id="courtsSwitch"></div>
+    <div class="main-container">
+      <div class="table-container">
+        <table id="scheduleTable">
+          <thead>
+            <tr id="tableHeader"></tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="secondary-container">
+      <div class="form-container">
+        <h2>Add New Client</h2>
+        <form id="clientForm">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" required />
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" required />
+          </div>
+          <div class="form-group">
+            <label for="phoneNumber">Phone Number</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" required />
+          </div>
+          <div class="form-group">
+            <label for="carNumber">Car Number</label>
+            <input type="text" id="carNumber" name="carNumber" />
+          </div>
+          <div class="form-group">
+            <label for="dateOfBirth">Date of Birth</label>
+            <input type="date" id="dateOfBirth" name="dateOfBirth" required />
+          </div>
+          <button type="submit">Add Client</button>
+        </form>
+      </div>
+      <div class="client-list-container">
+        <h2>List of Clients</h2>
+        <div id="clientList" class="client-list"></div>
+      </div>
+    </div>
+
+    <!-- Modal for creating a new booking -->
+    <div id="bookingModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeAddBookingModal">&times;</span>
+        <h2>Create Booking</h2>
+        <form id="bookingForm">
+          <div class="form-group">
+            <label for="client">Client</label>
+            <select id="client" name="client" required></select>
+          </div>
+          <div class="form-group">
+            <label for="court">Court</label>
+            <input type="text" id="court" name="court" value="4" readonly />
+          </div>
+          <div class="form-group">
+            <label for="timeSlot">Time Slot</label>
+            <input type="text" id="timeSlot" name="timeSlot" readonly />
+          </div>
+          <div class="form-group">
+            <label for="date">Date</label>
+            <input type="text" id="date" name="date" readonly />
+          </div>
+          <button type="submit">Create Booking</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal for displaying client details -->
+    <div id="clientDetailsModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeClientDetailsModal">&times;</span>
+        <h2>Client Details</h2>
+        <ul id="clientDetailsList"></ul>
+        <button
+          title="Delete client"
+          id="deleteClientButton"
+          class="delete-client"
+        >
+          Delete<br />client
+        </button>
+      </div>
+    </div>
+
+    <!-- Popup container -->
+    <div id="popup" class="popup"></div>
+
+    <script src="/js/dashboard.js"></script>
+  </body>
+</html>

@@ -1,0 +1,361 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background-image: url('https://images.unsplash.com/photo-1448743133657-f67644da3008?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8dGVubmlzJTIwY291cnR8ZW58MHx8MHx8fDA%3D');
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+}
+
+h1,
+h2 {
+  color: rgb(11, 18, 21);
+}
+
+#currentTime {
+  color: rgb(11, 18, 21);
+}
+
+.header {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.main-container {
+  width: 80%;
+  margin: 20px auto;
+}
+
+.secondary-container {
+  display: flex;
+  width: 80%;
+  margin-bottom: 20px;
+}
+
+.flex-container {
+  display: flex;
+}
+
+.table-container {
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: rgba(255, 255, 255, 0.75);
+  table-layout: fixed;
+}
+
+th,
+td {
+  border: 1px solid #c5c5c5;
+  color: rgb(11, 18, 21);
+  padding: 8px;
+  text-align: center;
+  word-wrap: break-word;
+  height: 50px;
+  position: relative;
+}
+
+th.today,
+td.today {
+  background-color: #ecff8f8a;
+}
+
+tr.current-time-slot td {
+  border: 2px solid #3b3b3b;
+}
+
+.booked-cell {
+  font-size: 14px;
+  font-weight: lighter;
+}
+
+.form-container {
+  margin-top: 20px;
+  margin-right: 20px;
+  width: 25%;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.3s;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button.add-booking {
+  opacity: 0;
+  background-color: #2e93ff;
+  color: #fff;
+}
+
+button.add-booking:hover {
+  opacity: 1;
+}
+
+#message {
+  margin-top: 20px;
+  color: red;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.delete-booking {
+  background-color: rgb(255, 75, 75);
+  opacity: 0.8;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 20%;
+  opacity: 0;
+}
+
+td:hover .delete-booking {
+  background-color: rgb(255, 75, 75);
+  opacity: 1;
+}
+
+.pay-booking {
+  background-color: rgb(0, 172, 132);
+  opacity: 0.8;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 20%;
+  opacity: 0;
+}
+
+td:hover .pay-booking {
+  background-color: rgb(0, 172, 132);
+  opacity: 1;
+}
+
+.popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #4caf50;
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  z-index: 1000;
+  display: none;
+}
+
+.popup.error {
+  background-color: #f44336;
+}
+
+.copy-phone-number {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.copy-phone-number:hover {
+  color: darkblue;
+  background-color: #f0f0f0;
+}
+
+.client-list-container {
+  margin-top: 20px;
+  width: 75%;
+  padding: 20px;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.client-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.client-tile {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  width: calc(33.333% - 20px);
+  box-sizing: border-box;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+#clientDetailsModal .modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+  position: relative;
+}
+
+#clientDetailsList {
+  list-style-type: none;
+  padding: 0;
+}
+
+#clientDetailsList li {
+  margin-bottom: 10px;
+}
+
+.delete-client {
+  background-color: rgb(255, 75, 75);
+  opacity: 75%;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  width: 20%;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 5px 10px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.client-tile h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.client-list-container h2 {
+  text-align: center;
+}
+
+.client-tile p {
+  margin: 5px 0 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.court-buttons {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.court-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.court-button {
+  width: 150px;
+  height: auto;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 15px;
+}
+
+.court-button.active {
+  border: 2px solid #007bff;
+}
+
+.court-name {
+  margin-top: 5px;
+  font-size: 18px;
+  color: #333;
+  font-weight: bold;
+}
+
+.court-name.active {
+  margin-top: 5px;
+  font-size: 18px;
+  color: #007bff;
+}
