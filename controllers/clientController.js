@@ -13,6 +13,7 @@ const createClient = async (req, res) => {
     );
     res.json(newClient);
   } catch (err) {
+    console.log(err);
     if (err.code === '23505') {
       // Unique constraint violation
       res

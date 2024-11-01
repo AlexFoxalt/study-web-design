@@ -25,6 +25,7 @@ router.post('/clients', clientController.createClient);
 router.delete('/clients/:id', clientController.deleteClient);
 
 router.get('/courts', courtController.getAllCourts);
+router.post('/courts', courtController.createCourt);
 
 router.get('/time-slots', timeSlotController.getAllTimeSlots);
 

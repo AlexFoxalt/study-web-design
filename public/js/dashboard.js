@@ -101,6 +101,9 @@ async function fetchCourts() {
   try {
     const courts = await (await makeAuthenticatedRequest('/courts')).json();
     const container = document.getElementById('courtsSwitch');
+    while (container.firstChild) {
+      container.firstChild.remove();
+    }
 
     const memoryCourtId = localStorage.getItem('activeCourtId');
     if (!memoryCourtId) {
@@ -115,7 +118,7 @@ async function fetchCourts() {
       courtContainer.classList.add('court-container');
 
       const button = document.createElement('img');
-      button.src = 'courtDisabled.png';
+      button.src = 'courtInactive.jpg';
       button.alt = court.name;
       button.classList.add('court-button');
       button.dataset.courtId = court.id;
@@ -123,12 +126,11 @@ async function fetchCourts() {
         switchCourt(court.id);
 
         document.querySelectorAll('.court-button').forEach((btn) => {
-          btn.src = 'courtDisabled.png';
+          btn.src = 'courtInactive.jpg';
           btn.classList.remove('active');
           btn.parentElement.classList.remove('active');
         });
-
-        e.target.src = 'courtEnabled.png';
+        e.target.src = `${court.surface_type}Court.jpg`;
         e.target.classList.add('active');
         e.target.parentElement.classList.add('active');
 
@@ -143,7 +145,7 @@ async function fetchCourts() {
       courtName.classList.add('court-name');
 
       if (court.id === activeCourtId) {
-        button.src = 'courtEnabled.png';
+        button.src = `${court.surface_type}Court.jpg`;
         button.classList.add('active');
         courtName.classList.add('active');
         courtContainer.classList.add('active');
@@ -152,6 +154,19 @@ async function fetchCourts() {
       courtContainer.appendChild(button);
       courtContainer.appendChild(courtName);
       container.appendChild(courtContainer);
+    });
+    const addCourtBtnContainer = document.createElement('div');
+    addCourtBtnContainer.classList.add('court-container');
+    const addCourtBtn = document.createElement('button');
+    addCourtBtn.id = 'addCourtButton';
+    addCourtBtn.classList.add('add-court-button');
+    addCourtBtn.textContent = '+';
+    addCourtBtn.title = 'Add court';
+    addCourtBtnContainer.appendChild(addCourtBtn);
+    container.appendChild(addCourtBtnContainer);
+
+    document.getElementById('addCourtButton').addEventListener('click', (e) => {
+      document.getElementById('courtModal').style.display = 'block';
     });
   } catch (err) {
     console.error('Error fetching courts:', err);
@@ -185,6 +200,7 @@ document.getElementById('clientForm').addEventListener('submit', async (e) => {
     if (response.status === 400) {
       showPopup(responseJson.message, true);
     } else {
+      document.getElementById('clientForm').reset();
       fetchClients();
       showPopup('Client added successfully');
     }
@@ -369,11 +385,41 @@ document.getElementById('bookingForm').addEventListener('submit', async (e) => {
       body: JSON.stringify(bookingData),
     });
     document.getElementById('bookingModal').style.display = 'none';
-    generateScheduleTable(); // Refresh the schedule table
+    document.getElementById('bookingForm').reset();
+    generateScheduleTable();
     showPopup('Booking created successfully');
   } catch (err) {
     console.error('Error creating booking:', err);
     showPopup('Error booking creating');
+  }
+});
+
+document.getElementById('courtForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.target);
+  const courtData = Object.fromEntries(formData.entries());
+
+  try {
+    const response = await makeAuthenticatedRequest('/courts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(courtData),
+    });
+    const responseJson = await response.json();
+    if (response.status === 400) {
+      showPopup(responseJson.message, true);
+    } else {
+      document.getElementById('courtModal').style.display = 'none';
+      document.getElementById('courtForm').reset();
+      fetchCourts();
+      showPopup('Court created successfully');
+    }
+  } catch (err) {
+    console.log(err);
+    showPopup('Error creating court', true);
   }
 });
 
@@ -399,11 +445,17 @@ document
     document.getElementById('clientDetailsModal').style.display = 'none';
   });
 
+document.getElementById('closeCourtModal').addEventListener('click', () => {
+  document.getElementById('courtModal').style.display = 'none';
+});
+
 window.addEventListener('click', (e) => {
   if (e.target === document.getElementById('bookingModal')) {
     document.getElementById('bookingModal').style.display = 'none';
   } else if (e.target === document.getElementById('clientDetailsModal')) {
     document.getElementById('clientDetailsModal').style.display = 'none';
+  } else if (e.target === document.getElementById('courtModal')) {
+    document.getElementById('courtModal').style.display = 'none';
   }
 });
 
@@ -429,6 +481,7 @@ function handleEscKeyPress(event) {
   if (event.key === 'Escape') {
     document.getElementById('bookingModal').style.display = 'none';
     document.getElementById('clientDetailsModal').style.display = 'none';
+    document.getElementById('courtModal').style.display = 'none';
   }
 }
 

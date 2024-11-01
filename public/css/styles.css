@@ -324,17 +324,24 @@ td:hover .pay-booking {
 }
 
 .court-buttons {
-  margin-bottom: 20px;
   display: flex;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 10px; /* Adjust the gap between buttons as needed */
+  width: 80%; /* Match the width of the booking table */
+  margin: 0 auto; /* Center the .court-buttons div */
+  justify-content: center;
 }
 
 .court-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 15px;
+  padding: 10px;
+  width: 200px;
+  box-sizing: border-box;
 }
 
 .court-container.active {
@@ -345,7 +352,22 @@ td:hover .pay-booking {
   width: 150px;
   height: auto;
   cursor: pointer;
-  padding: 5px 20px;
+  justify-self: center;
+}
+
+.add-court-button {
+  width: 50px;
+  height: 50px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
 }
 
 .court-name {

@@ -3,8 +3,23 @@ const { get } = require('../routes');
 
 const createCourt = async (req, res) => {
   const { name, surfaceType, costPerHour } = req.body;
-  const newCourt = await Court.createCourt(name, surfaceType, costPerHour);
-  res.json(newCourt);
+  try {
+    const newCourt = await Court.createCourt(
+      name,
+      surfaceType,
+      parseInt(costPerHour)
+    );
+    res.json(newCourt);
+  } catch (err) {
+    if (err.code === '23505') {
+      // Unique constraint violation
+      res
+        .status(400)
+        .json({ message: `Court with name '${name}' already exists` });
+    } else {
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  }
 };
 
 const getAllCourts = async (req, res) => {
