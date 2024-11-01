@@ -125,9 +125,12 @@ async function fetchCourts() {
         document.querySelectorAll('.court-button').forEach((btn) => {
           btn.src = 'courtDisabled.png';
           btn.classList.remove('active');
+          btn.parentElement.classList.remove('active');
         });
+
         e.target.src = 'courtEnabled.png';
         e.target.classList.add('active');
+        e.target.parentElement.classList.add('active');
 
         document.querySelectorAll('.court-name').forEach((name) => {
           name.classList.remove('active');
@@ -143,6 +146,7 @@ async function fetchCourts() {
         button.src = 'courtEnabled.png';
         button.classList.add('active');
         courtName.classList.add('active');
+        courtContainer.classList.add('active');
       }
 
       courtContainer.appendChild(button);

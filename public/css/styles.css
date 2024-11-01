@@ -333,18 +333,19 @@ td:hover .pay-booking {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 15px;
+}
+
+.court-container.active {
+  border: 2px solid #007bff;
 }
 
 .court-button {
   width: 150px;
   height: auto;
   cursor: pointer;
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 15px;
-}
-
-.court-button.active {
-  border: 2px solid #007bff;
+  padding: 5px 20px;
 }
 
 .court-name {
